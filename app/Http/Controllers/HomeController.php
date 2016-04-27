@@ -66,7 +66,29 @@ class HomeController extends Controller {
 					)
 			);
 	}
+	public function get_Language()
+	{
+		$api = new API;
+		$hasil = $api->getCurl('general_api/listLanguage');
+		// print_r($hasil);
+		\App\Language::whereRaw('id>0')->delete();
+		$data = array();
+		foreach ($hasil->result as $key) {
+			$lang = new \App\Language;
+			$lang->code = $key->code;
+			$lang->name_long = $key->name_long;
+			$lang->name_short = $key->name_short;
+			$lang->save();
+			$data['id'][$lang->id] = $key->code;
+		}
 
+		echo json_encode(
+			array(
+				'status_code'	=> 200,
+				'inserted_data'	=> sizeof($data['id'])
+			)
+		);
+	}
 	public function view_Currency()
 	{
 		$s['data'] = \App\Currency::all();
@@ -76,6 +98,11 @@ class HomeController extends Controller {
 	{
 		$s['data'] = \App\Country::all();
 		return view('master.country')->with($s);
+	}
+	public function view_Language()
+	{
+		$s['data'] = \App\Language::all();
+		return view('master.language')->with($s);
 	}
 
 
