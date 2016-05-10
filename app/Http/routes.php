@@ -32,6 +32,10 @@ Route::get('master/country','HomeController@view_country');
 
 Route::get('cronGetCountry','HomeController@get_country');
 
+Route::get('master/airport','HomeController@view_airport');
+
+Route::get('cronGetAirport','HomeController@get_airport');
+
 // Route::get('cronGetCurrency',function()
 // {
 // 		$api = new App\Http\controllers\TiketAPI\APIController;

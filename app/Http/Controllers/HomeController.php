@@ -79,6 +79,7 @@ class HomeController extends Controller {
 			$lang->name_long = $key->name_long;
 			$lang->name_short = $key->name_short;
 			$lang->save();
+
 			$data['id'][$lang->id] = $key->code;
 		}
 
@@ -88,6 +89,28 @@ class HomeController extends Controller {
 				'inserted_data'	=> sizeof($data['id'])
 			)
 		);
+	}
+	public function get_Airport()
+	{
+		$api = new API;
+		$result = $api->getCurl('flight_api/all_airport');
+		\App\Airport::whereRaw('id>0')->delete();
+		$data = array();
+		foreach ($result->all_airport->airport as $key) {
+			$air = new \App\Airport;
+			$air->airport_name = $key->airport_name;
+			$air->airport_code = $key->airport_code;
+			$air->location_name = $key->location_name;
+			$air->country_id = $key->country_id;
+			$air->save();
+			$data['id'][$air->id]=$key->country_id;
+		}
+		echo json_encode(
+				array(
+					'status_code'=>200,
+					'inserted_data'=>sizeof($data['id'])
+					)
+			);
 	}
 	public function view_Currency()
 	{
@@ -99,12 +122,17 @@ class HomeController extends Controller {
 		$s['data'] = \App\Country::all();
 		return view('master.country')->with($s);
 	}
+
 	public function view_Language()
 	{
 		$s['data'] = \App\Language::all();
 		return view('master.language')->with($s);
 	}
-
+	public function view_Airport()
+	{
+		$s['data'] = \App\Airport::all();
+		return view('master.airport')->with($s);
+	}
 
 	// /**
 	//  * Show the application dashboard to the user.
