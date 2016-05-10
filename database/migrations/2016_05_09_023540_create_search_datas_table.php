@@ -19,10 +19,10 @@ class CreateSearchDatasTable extends Migration {
 			$table->String('arrive_city');
 			$table->String('depart_date');
 			$table->String('return_date');
-			$table->Int('adult');
-			$table->Int('child');
-			$table->Int('infent');
-			$table->Int('ver');
+			$table->Integer('adult');
+			$table->Integer('child');
+			$table->Integer('infent');
+			$table->Integer('ver');
 			$table->Longtext('result');
 			$table->timestamps();
 		});

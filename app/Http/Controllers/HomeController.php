@@ -66,15 +66,14 @@ class HomeController extends Controller {
 					)
 			);
 	}
-	public function get_Language()
+	public function get_Lang()
 	{
 		$api = new API;
 		$hasil = $api->getCurl('general_api/listLanguage');
-		// print_r($hasil);
-		\App\Language::whereRaw('id>0')->delete();
+		\App\Lang::whereRaw('id>0')->delete();
 		$data = array();
 		foreach ($hasil->result as $key) {
-			$lang = new \App\Language;
+			$lang = new \App\Lang;
 			$lang->code = $key->code;
 			$lang->name_long = $key->name_long;
 			$lang->name_short = $key->name_short;
@@ -123,10 +122,10 @@ class HomeController extends Controller {
 		return view('master.country')->with($s);
 	}
 
-	public function view_Language()
+	public function view_Lang()
 	{
-		$s['data'] = \App\Language::all();
-		return view('master.language')->with($s);
+		$s['data'] = \App\Lang::all();
+		return view('master.lang')->with($s);
 	}
 	public function view_Airport()
 	{
