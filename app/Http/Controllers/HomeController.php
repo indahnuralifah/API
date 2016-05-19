@@ -1,4 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php 
+
+namespace App\Http\Controllers;
+
+use Iluminate\Http\Request;
 
 use App\Http\Controllers\TiketAPI\APIController as API;
 
@@ -28,7 +32,7 @@ class HomeController extends Controller {
 	{
 		$api = new API;
 		$hasil = $api->getCurl('general_api/listCurrency');
-		\App\Currency::whereRaw('id>0')->delete();
+		\App\Currency::whereRaw('id<>0')->delete();
 		$data = array();
 		foreach ($hasil->result as $key ) {
 			$curr = new \App\Currency;
@@ -48,7 +52,7 @@ class HomeController extends Controller {
 	{
 		$api = new API;
 		$hasil = $api->getCurl('general_api/listCountry');
-		\App\Country::whereRaw('id>0')->delete();
+		\App\Country::whereRaw('id<>0')->delete();
 		$data = array();
 		foreach ($hasil->listCountry as $key ) {
 			$ctr = new \App\Country;
@@ -70,7 +74,7 @@ class HomeController extends Controller {
 	{
 		$api = new API;
 		$hasil = $api->getCurl('general_api/listLanguage');
-		\App\Lang::whereRaw('id>0')->delete();
+		\App\Lang::whereRaw('id<>0')->delete();
 		$data = array();
 		foreach ($hasil->result as $key) {
 			$lang = new \App\Lang;
@@ -93,7 +97,7 @@ class HomeController extends Controller {
 	{
 		$api = new API;
 		$result = $api->getCurl('flight_api/all_airport');
-		\App\Airport::whereRaw('id>0')->delete();
+		\App\Airport::whereRaw('id<>0')->delete();
 		$data = array();
 		foreach ($result->all_airport->airport as $key) {
 			$air = new \App\Airport;

@@ -21,9 +21,10 @@ class CreateSearchDatasTable extends Migration {
 			$table->String('return_date');
 			$table->Integer('adult');
 			$table->Integer('child');
-			$table->Integer('infent');
+			$table->Integer('infant');
 			$table->Integer('ver');
 			$table->Longtext('result');
+			$table->String('token');
 			$table->timestamps();
 		});
 	}

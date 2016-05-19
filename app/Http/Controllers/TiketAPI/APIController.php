@@ -1,4 +1,8 @@
-<?php namespace App\Http\Controllers\TiketAPI;
+<?php 
+
+namespace App\Http\Controllers\TiketAPI;
+use Iluminate\Http\Request;
+
 
 	class APIController {
 		public $token;
